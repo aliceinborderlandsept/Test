@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank of America Alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .popup {
+      background: #fff;
+      padding: 25px 20px;
+      border-radius: 10px;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+    .popup img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .popup h3 {
+      font-size: 18px;
+      margin: 10px 0;
+      color: #b22222;
+    }
+    .popup p {
+      font-size: 15px;
+      margin: 8px 0;
+    }
+    .popup h4 {
+      color: #1a73e8;
+      margin: 14px 0;
+      font-size: 16px;
+    }
+    .disclaimer {
+      font-size: 10px;
+      color: gray;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="popup">
+      <img src="https://1000logos.net/wp-content/uploads/2021/04/Bank-of-America-logo.png" alt="BOA Logo">
+      <h3>🚨 Bank of America - Security Alert</h3>
+      <p>We've detected an unusual login attempt on your account:</p>
+      <p id="deviceInfo">📱 Device: Detecting...</p>
+      <p id="locationInfo">📍 Location: Detecting...</p>
+      <p id="timeInfo">🕒 Time: Detecting...</p>
+      <p><strong>Funds have been temporarily locked.</strong></p>
+      <h4>📞 Call BOA Fraud Dept: +1-888-222-1234</h4>
+      <p class="disclaimer">This is a prank page for entertainment purposes only. Not affiliated with Bank of America.</p>
+    </div>
+  </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const userAgent = navigator.userAgent;
+      const time = new Date().toLocaleTimeString();
+      document.getElementById("deviceInfo").innerText = `📱 Device: ${userAgent}`;
+      document.getElementById("timeInfo").innerText = `🕒 Time: ${time}`;
+
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("locationInfo").innerText =
+            `📍 Location: ${data.city}, ${data.region}, ${data.country_name}`;
+        });
+    });
+  </script>
+</body>
+</html>
