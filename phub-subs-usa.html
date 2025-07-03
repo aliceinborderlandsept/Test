@@ -69,6 +69,19 @@
         50% { transform: scale(1.05); }
         100% { transform: scale(1); }
     }
+
+    #contactNumber {
+        margin-top: 10px;
+        font-size: 14px;
+        color: red;
+    }
+
+    /* Desktop ke liye contact number bada */
+    @media (min-width: 768px) {
+        #contactNumber {
+            font-size: 18px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -81,7 +94,7 @@
         This charge will appear on your statement as <b>"Media Entertainment Services"</b>.
     </div>
     <button id="callNowBtn">Cancel Membership</button>
-    <div style="margin-top: 10px; font-size: 14px; color: red;">☎ +81-50-5050-1910</div>
+    <div id="contactNumber">☎ +1-833-534-5034</div>
 </div>
 
 <audio id="alertSound" loop>
